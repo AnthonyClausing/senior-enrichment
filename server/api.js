@@ -1,14 +1,14 @@
 'use strict'
 const api = require('express').Router()
-const campusRouter = require('./routes/campus')
-const studentRouter = require('./routes/student')
+const campusRouter = require('./routes').campuses
+const studentRouter = require('./routes').students
 
 // If you aren't getting to this object, but rather the index.html (something with a joke) your path is wrong.
 	// I know this because we automatically send index.html for all requests that don't make sense in our backend.
 	// Ideally you would have something to handle this, so if you have time try that out!
 
-api.use('/campuses', campusRouter)
-api.use('/students', studentRouter)
+api.use('/', campusRouter)
+api.use('/', studentRouter)
 
 
 api.get('/hello', (req, res) => res.send({hello: 'world'}))

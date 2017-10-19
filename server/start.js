@@ -39,7 +39,7 @@ if (module === require.main) {
   const db = require('../db')
   db.sync()
   .then(() => {
-    console.log('db synced')
-    app.listen(PORT, () => console.log(`server listening on port ${PORT}`))
+    console.log('Change the db\'s name to Titanic cuz it\'s just been synced...syunc?')
+    app.listen(PORT, () => console.log(`btw server listening on port ${PORT}`))
   })
 }
