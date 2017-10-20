@@ -17,11 +17,9 @@ export default class AddStudent extends Component {
 
 	handleImageUrl(evt) {
 		this.setState({ imageUrl: evt.target.value })
-		console.log(evt.target.value)
 	}
 
 	handleName(evt) {
-		console.log(evt.target.value)
 		this.setState({ name: evt.target.value })
 	}
 
@@ -29,9 +27,11 @@ export default class AddStudent extends Component {
 		evt.preventDefault()
 		const name = this.state.name
 		const imageUrl = this.state.imageUrl
-		axios.post('/api/campuses/add', { name: name, imageUrl: imageUrl })
+		axios.post('/api/campuses/add', { 
+			name: name, 
+			imageUrl: imageUrl 
+		})
 		.then(this.props.refreshClick())
-		.catch(err => console.log(err))
 	}
 
 	render() {

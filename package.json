@@ -1,5 +1,5 @@
 {
-  "name": "CollegeSearch",
+  "name": "college_search",
   "version": "0.0.1",
   "description": "A review time project",
   "main": "index.js",
@@ -7,7 +7,9 @@
     "test": "mocha **/*.test.js *.test.js",
     "build": "webpack",
     "build-watch": "webpack -w",
-    "start": " webpack -w & nodemon server/start.js"
+    "start": " webpack -w & nodemon server/start.js",
+    "seed" : "node seed.js",
+    "postinstall": "pg init college_search"
   },
   "keywords": [
     "react",

@@ -34,7 +34,7 @@ router.post('/add', function (req, res, next) {
 
 router.put('/:id', function (req, res, next) {
 	let studentInfo = req.params.id;
-	console.log(studentInfo)
+
 	Students.findById(studentInfo)
 		.then(student => student.update({
 			name: req.body.name || student.name,

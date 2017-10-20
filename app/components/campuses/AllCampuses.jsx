@@ -40,11 +40,10 @@ export default class AllCampuses extends Component {
 
 	render() {
 		const campuses = this.props.campuses;
-		console.log(this.props)
 		return (
 			<div>
-				<button onClick={this.handleAdd}>Add A Campus</button>
-				{this.state.isClicked ? <AddCampus refreshClick={this.refreshClick} /> : null}
+				<button onClick={this.handleAdd}>{!this.state.isClicked? "Add A Campus" : "Close Form"}</button>
+				{this.state.isClicked ? <AddCampus refreshClick={this.refreshClick}  /> : null}
 				<div id="AllCampuses">
 					<ul>
 						{

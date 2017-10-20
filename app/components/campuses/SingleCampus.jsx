@@ -72,7 +72,6 @@ export default class SingleCampus extends Component {
 							})
 						}
 					</ol>
-					{this.state.isClicked ? <UpdateCampus students={this.props.students} campus={campus} refreshClick={this.refreshClick} /> : null}
 				</div>
 			</div>
 		)

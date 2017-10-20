@@ -1,46 +1,55 @@
-import React from 'react';
+import React, {Component} from 'react';
 import axios from 'axios';
 
-const UpdateCampus = (props) => {
-	let imageUrl = "" || props.campus.imageUrl;
-	let campusName = "" || props.campus.name;
-	let selectedStudent = 1;
-	const students = props.students
-	const campusId = props.campus.id
-
-	const availableStudents = props.students.filter(student => student.campusId === null)
-
-	const handleCampusName = function (evt) {
-		campusName = evt.target.value
-	}.bind(this)
-
-	const handleCampusPic = function (evt) {
-		imageUrl = evt.target.value
-	}.bind(this)
-	const handleStudentSelect = function (evt) {
-		console.log(evt.target.value)
-		selectedStudent = evt.target.value
+export default class UpdateCampus extends Component{
+		constructor(props){
+			super()
+			this.state = {
+					imageUrl : "",
+					campusName: "",
+					selectedStudent :1
+			}
+			this.handleCampusName = this.handleCampusName.bind(this);
+			this.handleCampusPic = this.handleCampusPic.bind(this);
+			this.handleStudentSelect = this.handleStudentSelect.bind(this);
+			this.handleSubmit = this.handleSubmit.bind(this);
+		}
+	handleCampusName(evt) {
+	this.setState({campusName :evt.target.value})
 	}
 
-	const handleSubmit = function (evt) {
+	handleCampusPic(evt) {
+		this.setState({imageUrl : evt.target.value})
+	}
+	handleStudentSelect(evt) {
+		console.log(evt.target.value)
+		this.setState({selectedStudent: evt.target.value})
+	}
+
+	handleSubmit(evt) {
 		evt.preventDefault()
-
-		axios.put(`/api/campuses/${campusId}`, {
-			name: campusName,
-			imageUrl: imageUrl
+		const enrolledStudent = this.state.selectedStudent
+		axios.put(`/api/campuses/${this.props.campus.id}`, {
+			name: this.state.campusName,
+			imageUrl: this.state.imageUrl
 		})
-		axios.put(`/api/students/${selectedStudent}`, {
-			campusId: campusId
-		}).then(props.refreshClick())
-	}.bind(this)
+		axios.put(`/api/students/${enrolledStudent}`, {
+			campusId: this.props.campus.id
+		})
+		.then(this.props.refreshClick())
+	}
 
+render(){
+	const students = this.props.students
+
+	const availableStudents = students.filter(student => student.campusId === null)
 
 	return (
 		<div>
-			<form action="" onSubmit={handleSubmit}>
-				<label>Campus Name:</label> <input type="text" id="name" name="name" onChange={handleCampusName} />
-				<label>Image URL</label> <input type="text" id="imageUrl" name="imageUrl" onChange={handleCampusPic} />
-				<select onChange={handleStudentSelect}>
+			<form action="" onSubmit={this.handleSubmit}>
+				<label>Campus Name:</label> <input type="text" id="name" name="name" onChange={this.handleCampusName} />
+				<label>Image URL</label> <input type="text" id="imageUrl" name="imageUrl" onChange={this.handleCampusPic} />
+				<select onChange={this.handleStudentSelect}>
 					<option value="">Choose an Available Student</option>
 					{
 						availableStudents && availableStudents.map((student, idx) => {
@@ -51,7 +60,5 @@ const UpdateCampus = (props) => {
 				<button type="submit" className="campus-update-button">Submit Changes</button>
 			</form>
 		</div>)
-
+	}
 }
-
-export default UpdateCampus;

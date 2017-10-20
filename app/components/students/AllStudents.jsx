@@ -9,12 +9,14 @@ export default class AllStudents extends Component {
 	constructor(props) {
 		super()
 		this.state = {
-			isClicked: false
+			isClicked: false,
+			allStudents: []
 		}
 		this.handleDelete = this.handleDelete.bind(this);
 		this.handleAdd = this.handleAdd.bind(this);
 		this.refreshClick = this.refreshClick.bind(this);
 	}
+
 
 	handleAdd() {
 		if (!this.state.isClicked) {
@@ -30,14 +32,21 @@ export default class AllStudents extends Component {
 		evt.preventDefault()
 		const studentID = evt.target.value
 		const confirmation = confirm('Are you sure you want to delete this student?')
+		const newStudentList = this.state.allStudents.filter(student => student.id != studentID)
 		if (confirmation) {
+			this.setState({ allStudents: newStudentList })
 			axios.delete(`/api/students/${studentID}`)
 		}
 	}
+	componentDidMount() {
+		this.setState({ allStudents: this.props.students })
+	}
+
+	componentWillReceiveProps() {}
+
 
 	render() {
 		const students = this.props.students
-		console.log(this.props)
 		return (
 			<div>
 				<div >

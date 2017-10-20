@@ -32,7 +32,7 @@ export default class SingleStudent extends Component {
 		axios.get(`/api/students/${studentID}`)
 			.then(res => res.data)
 			.then(student => this.setState({ student }))
-			.catch(err => console.log(err))
+
 	}
 
 	render() {
