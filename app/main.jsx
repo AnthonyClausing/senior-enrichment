@@ -4,12 +4,12 @@ import {render} from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom';
 import store from './store'
-import MainContainer from './components/Main'
+import Main from './components/Main'
 
 render (
   <Provider store={store}>
   <Router>
-    <MainContainer/>
+    <Main/>
     </Router>
   </Provider>,
   document.getElementById('main')
